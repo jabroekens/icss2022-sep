@@ -95,6 +95,8 @@ Een mixin kan dezelfde 'onderdelen' bevatten als een stylerule:
 * Mixin calls
 * Stylerules
 
+**Let op:** er is geen rekening gehouden met recursie in mixins! Let dus goed op dat je een mixin niet perongeluk recursief aanroept... anders wordt je computer niet zo blij :(
+
 #### Mixin zonder argumenten
 ```
 Line() {
