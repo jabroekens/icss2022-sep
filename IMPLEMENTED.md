@@ -207,4 +207,4 @@ p, a {
 ```
 
 ## Tests
-Er zijn unit tests voor de nieuwe 'levels' (elk van de bovenstaande uitbreidingen) van de parser toegevoegd, en ook voor de checker, HANLinkedList en HANStack. De 'levels' zijn ook toegevoegd aan het menu voor de GUI.
+Er zijn unit tests voor de nieuwe 'levels' (elk van de bovenstaande uitbreidingen) van de parser toegevoegd, en ook voor de checker, HANLinkedList en HANStack. De 'levels' zijn ook toegevoegd aan het menu voor de GUI, en er zijn 'integratietests' voor toegevoegd (JUnit-tests die de stappen in de pipeline aflopen: parse → check → transform → generate).
