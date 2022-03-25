@@ -32,6 +32,8 @@ CAPITAL_IDENT: [A-Z] [A-Za-z0-9_]*;
 WS: [ \t\r\n]+ -> skip;
 
 //
+OPEN_PAREN: '(';
+CLOSE_PAREN: ')';
 OPEN_BRACE: '{';
 CLOSE_BRACE: '}';
 SEMICOLON: ';';
@@ -40,10 +42,35 @@ PLUS: '+';
 MIN: '-';
 MUL: '*';
 ASSIGNMENT_OPERATOR: ':=';
+COMMA: ',';
 
 
 
 
 //--- PARSER: ---
-stylesheet: EOF;
-
+selector
+	: LOWER_IDENT #TagSelector
+	| CLASS_IDENT #ClassSelector
+	| ID_IDENT #IdSelector
+	| COMMA selector #AdditionalSelector;
+stylerule: selector+ OPEN_BRACE styleruleBody+ CLOSE_BRACE;
+mixinCall: variableReference OPEN_PAREN (expression*|expression(COMMA expression)+) CLOSE_PAREN SEMICOLON;
+elseClause: ELSE OPEN_BRACE styleruleBody+ CLOSE_BRACE;
+ifClause: IF BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE OPEN_BRACE (styleruleBody|elseClause)+ CLOSE_BRACE;
+declaration: LOWER_IDENT COLON expression SEMICOLON;
+styleruleBody: variableAssignment|declaration|ifClause|mixinCall|stylerule;
+mixinArgument: variableReference (COLON expression)?;
+mixin: variableReference OPEN_PAREN (mixinArgument*|mixinArgument(COMMA mixinArgument)+) CLOSE_PAREN OPEN_BRACE styleruleBody+ CLOSE_BRACE;
+expression
+	: expression MUL expression #MultiplyOperation
+	| expression PLUS expression #AddOperation
+	| expression MIN expression #SubtractOperation
+	| COLOR #ColorLiteral
+	| PIXELSIZE #PixelLiteral
+	| PERCENTAGE #PercentageLiteral
+	| SCALAR #ScalarLiteral
+	| (TRUE|FALSE) #BoolLiteral
+	| variableReference #ExpressionVariableReference;
+variableReference: CAPITAL_IDENT;
+variableAssignment: variableReference ASSIGNMENT_OPERATOR expression SEMICOLON;
+stylesheet: (variableAssignment|mixin|stylerule)* EOF;

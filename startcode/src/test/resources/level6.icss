@@ -1,0 +1,95 @@
+LinkColor := #ff0000;
+ParWidth := 500px;
+AdjustColor := TRUE;
+UseLinkColor := FALSE;
+
+Line() {
+    width: 100%;
+    height: 1px;
+    background-color: #000000;
+}
+
+Button(Width, Height, Color) {
+    width: Width;
+    height: Height;
+    color: Color;
+}
+
+FilledButton(Width, Height, FgColor: #000000, BgColor: FgColor) {
+    Button(Width, Height, FgColor);
+    background-color: BgColor;
+}
+
+SpecialParagraph(LinkColor: LinkColor) {
+    p {
+        width: ParWidth;
+        a {
+            color: LinkColor;
+        }
+    }
+}
+
+p {
+    background-color: #ffffff;
+    width: ParWidth;
+    if[AdjustColor] {
+        color: #124532;
+        if[UseLinkColor]{
+            background-color: LinkColor;
+        } else {
+            background-color: #000000;
+        }
+    }
+    height: 20px;
+}
+
+a {
+    color: LinkColor;
+}
+
+#menu {
+    width: ParWidth + 20px;
+}
+
+.menu {
+    color: #000000;
+    background-color: LinkColor;
+}
+
+div, section {
+    width: ParWidth;
+    height: ParWidth;
+
+    p {
+        color: LinkColor;
+
+        a, span {
+            color: #00ff00;
+        }
+    }
+
+    article {
+        background-color: #000000;
+
+        p {
+            color: #ffffff;
+        }
+    }
+}
+
+#line {
+    Line();
+}
+
+#button-a, #button-b {
+    Button(80px, 40px, #00ff00);
+}
+
+#filled-button {
+    FilledButton(100px, 50px, #444444);
+}
+
+#highlighted-section {
+    background-color: #000000;
+    SpecialParagraph(#123546);
+}
