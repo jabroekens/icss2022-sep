@@ -32,7 +32,7 @@ import nl.han.ica.icss.ast.types.ExpressionType;
 
 public class Checker {
 
-	protected static final EnumSet<ExpressionType> ALLOWED_OPERAND_TYPES = EnumSet.of(
+	private static final EnumSet<ExpressionType> ALLOWED_OPERAND_TYPES = EnumSet.of(
 		ExpressionType.PERCENTAGE, ExpressionType.PIXEL, ExpressionType.SCALAR
 	);
 
